@@ -1,0 +1,26 @@
+{
+  "name": "node-taste",
+  "version": "1.0.0",
+  "description": "learn connect middleware",
+  "main": "taste-connect.js",
+  "dependencies": {
+    "connect": "^3.6.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huenyifei/node-taste.git"
+  },
+  "keywords": [
+    "taste"
+  ],
+  "author": "Colin Wu",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/huenyifei/node-taste/issues"
+  },
+  "homepage": "https://github.com/huenyifei/node-taste#readme"
+}
