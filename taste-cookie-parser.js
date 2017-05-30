@@ -12,17 +12,22 @@
  */
 var connect = require('connect')
 var cookieParser = require('cookie-parser')
-var signature = require('cookie-signature');
+var signature = require('cookie-signature')
+
+secret = 'yueyingxie'
 
 connect()
-  .use(function(req, res, next){
-    res.setHeader('Set-Cookie', ['foo = s:'+signature.sign('bar', 'nihao')])
+  .use(function (req, res, next) {
+    res.setHeader('Set-Cookie', [
+      'user = s:' + signature.sign('yue', secret),
+      'age = s:' + signature.sign('yue', secret),
+    ])
     next()
   })
-  .use(cookieParser('nihao'))
-  .use(function hello(req, res){
+  .use(cookieParser(secret))
+  .use(function hello (req, res) {
     console.log('Cookies: ', req.cookies)
-    console.log('Signed Cookies: ', req.signedCookies)
+    console.log('Signed Cookies: ', cookieParser.signedCookie('s:yue.0tMA6mtW0lNe76R8PbnQpL+G8yLqqB3lI1dOsAkhcbQ', secret))
     res.end()
   })
   .listen(3000)
