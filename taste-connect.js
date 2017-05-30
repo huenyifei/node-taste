@@ -16,24 +16,29 @@ var restrict = require('./lib/restrict.js')
 
 var routes = {
   GET: {
-    '/': function(req, res){
+    '/': function (req, res) {
       res.end('hello, world!')
     },
-    '/users': function(req, res){
-      res.end('tobi, loki, ferret');
+    '/users': function (req, res) {
+      res.end('tobi, loki, ferret')
     },
-    '/user/:id': function(req, res, id){
-      res.end('user ' + id);
+    '/user/:id': function (req, res, id) {
+      res.end('user ' + id)
     }
   },
   DELETE: {
-    '/user/:id': function(req, res, id){
-      res.end('deleted user ' + id);
+    '/user/:id': function (req, res, id) {
+      res.end('deleted user ' + id)
     }
   }
 }
 
+function hello(req, res){
+  res.end('Hello, world!')
+}
+
 connect()
   .use(restrict)
-  .use(router(routes))
+  .use('/admin', router(routes))
+  .use(hello)
   .listen(3000)
