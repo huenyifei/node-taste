@@ -19,15 +19,19 @@ secret = 'yueyingxie'
 connect()
   .use(function (req, res, next) {
     res.setHeader('Set-Cookie', [
-      'user = s:' + signature.sign('yue', secret),
-      'age = s:' + signature.sign('yue', secret),
+      'user = yue',
+      // 写为 'grade = j:{math:67, english:82}'是不对的
+      'grade = j:{"math":67, "english":82}',
+      'age = s:' + signature.sign('twenty-one', secret),
     ])
     next()
   })
   .use(cookieParser(secret))
   .use(function hello (req, res) {
-    console.log('Cookies: ', req.cookies)
-    console.log('Signed Cookies: ', cookieParser.signedCookie('s:yue.0tMA6mtW0lNe76R8PbnQpL+G8yLqqB3lI1dOsAkhcbQ', secret))
+    console.log('解析Cookies: ', req.cookies)
+    console.log('解析Signed Cookies: ', req.signedCookies)
+    console.log('方法JSONCookie:', cookieParser.JSONCookie('j:{"math":67, "english":82}'))
+    console.log('方法signedCookie: ', cookieParser.signedCookie('s:'+signature.sign('twenty-one', secret), secret))
     res.end()
   })
   .listen(3000)
