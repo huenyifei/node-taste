@@ -19,7 +19,7 @@ var http = require('http')
 var parse = require('url').parse
 var join = require('path').join
 var fs = require('fs')
-var qs = require('qs')
+var qs = require('querystring')
 
 var root = __dirname
 
@@ -34,6 +34,10 @@ function show (res) {
     '<form method="post" action="/">' +
     '<p><input type="text" name="item" /></p>' +
     '<p><input type="submit" value="Add Item" /></p>' +
+    '<form method="post" action="/" enctype="multipart/form-data">' +
+    '<p><input type="text" name="name" /></p>' +
+    '<p><input type="file" name="file"/></p>' +
+    '<p><input type="submit" value="Upload"/></p>' +
     '</form></body></html>'
   res.setHeader('Content-Type', 'text/html')
   res.setHeader('Content-Length', Buffer.byteLength(html))
