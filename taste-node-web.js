@@ -32,7 +32,7 @@ function show (res) {
     '<ul>' +
     items.map(function (item) { return '<li>' + item + '</li>'}).join('') +
     '</ul>' +
-    '<form method="post" action="/">' +
+    '<form method="post" action="/" >' +
     '<p><input type="text" name="item" /></p>' +
     '<p><input type="submit" value="Add Item" /></p>' +
     '</form>' +
