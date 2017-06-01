@@ -20,6 +20,7 @@ var parse = require('url').parse
 var join = require('path').join
 var fs = require('fs')
 var qs = require('qs')
+var formidable = require('formidable')
 
 var root = __dirname
 
@@ -34,6 +35,11 @@ function show (res) {
     '<form method="post" action="/">' +
     '<p><input type="text" name="item" /></p>' +
     '<p><input type="submit" value="Add Item" /></p>' +
+    '</form>' +
+    '<form method="post" action="/" enctype="multipart/form-data">' +
+    '<p><input type="text" name="name" /></p>' +
+    '<p><input type="file" name="file" /></p>' +
+    '<p><input type="submit" name="Upload" /></p>' +
     '</form></body></html>'
   res.setHeader('Content-Type', 'text/html')
   res.setHeader('Content-Length', Buffer.byteLength(html))
@@ -64,6 +70,11 @@ function add (req, res) {
   })
 }
 
+function isFormData(req){
+  var type = req.headers['content-type']||''
+  return 0 == type.indexOf('multipart/form-data')
+}
+
 var server = http.createServer(function (req, res) {
   if ('/' == req.url) {
     switch (req.method) {
@@ -71,7 +82,16 @@ var server = http.createServer(function (req, res) {
         show(res)
         break
       case 'POST':
-        add(req, res)
+        if (isFormData(req)) {
+          var form = new formidable.IncomingForm()
+          form.parse(req, function (err, fields, files) {
+            console.log(fields)
+            console.log(files)
+            res.end('upload complete!')
+          })
+        } else {
+          add(req, res)
+        }
         break
       default:
         badRequest(res)
