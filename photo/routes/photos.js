@@ -12,16 +12,16 @@ var fs = require('fs')
 var mv = require('mv')
 var join = path.join
 
-var photos = [
-  {
-    name: 'Node.js Logo',
-    path: 'nodejs-green.png'
-  },
-  {
-    name: 'Ryan Speaking',
-    path: 'ryan-speaker.png'
-  }
-]
+// var photos = [
+//   {
+//     name: 'Node.js Logo',
+//     path: 'nodejs-green.png'
+//   },
+//   {
+//     name: 'Ryan Speaking',
+//     path: 'ryan-speaker.png'
+//   }
+// ]
 
 // exports.list = function (req, res) {
 //   res.render('photos', {
