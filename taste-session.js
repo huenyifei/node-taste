@@ -11,8 +11,8 @@ var session = require('express-session')
 
 var app = express()
 app.use(session({
-  resave: false,
-  rolling: false,
+  resave: true,
+  rolling: true,
   saveUninitialized: true,
   secret: 'keyboard cat',
   cookie: {maxAge: 60000}
