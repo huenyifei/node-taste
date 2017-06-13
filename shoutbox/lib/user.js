@@ -15,6 +15,7 @@ User.prototype.save = function (fn) {
     this.update(fn)
   } else {
     var user = this
+    //数据库来创建唯一的ID
     db.incr('user:ids', function (err, id) {
       if (err) return fn(err)
       user.id = id
@@ -26,6 +27,7 @@ User.prototype.save = function (fn) {
   }
 }
 
+//update是真正的保存
 User.prototype.update = function (fn) {
   var user = this
   var id = user.id

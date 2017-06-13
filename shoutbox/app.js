@@ -18,6 +18,7 @@ var user = require('./lib/middleware/user')
 var validate = require('./lib/middleware/validate')
 var page = require('./lib/middleware/page')
 var Entry = require('./lib/entry')
+var api = require('./routes/api')
 
 var app = express()
 
@@ -40,6 +41,7 @@ app.use(session({
   // cookie: {maxAge: 60000}
 }))
 app.use(express.static(path.join(__dirname, 'public')))
+app.use('/api', api.auth)
 app.use(user)
 app.use(messages)
 
@@ -75,8 +77,11 @@ app.post('/post',
   validate.lengthAbove('entry[title]', 4),
   entries.submit)
 
-
 app.get('/:page?', page(Entry.count, 5), entries.list)
+app.get('/api/user/:id', api.user)
+app.get('/api/entries/:page?', page(Entry.count, 5), api.entries)
+
+app.post('/api/entry', entries.submit)
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'))
